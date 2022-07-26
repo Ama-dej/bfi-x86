@@ -147,15 +147,15 @@ loop_start:
         cmp dword[ecx], 0
         jne main_loop
         xor ebx, ebx
-        xor eax, eax
+        inc edx
 
 .find_partner1:
         mov al, byte[edx]
         inc edx
         cmp al, ']'
         je .chk_if_matching1
-        ;cmp al, '['
-        ;je .another_one1
+        cmp al, '['
+        je .another_one1
         jmp .find_partner1
 
 .chk_if_matching1:

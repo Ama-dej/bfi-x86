@@ -147,6 +147,7 @@ loop_start:
         cmp dword[ecx], 0
         jne main_loop
         xor ebx, ebx
+        dec edx
 
 .find_partner1:
         inc edx

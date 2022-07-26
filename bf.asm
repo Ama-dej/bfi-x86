@@ -152,30 +152,54 @@ loop_start:
         mov al, byte[edx]
         inc edx
         cmp al, ']'
-        je chk_if_matching
+        je .chk_if_matching
         cmp al, '['
-        je another_one
+        je .another_one
         jmp .find_partner
 
-chk_if_matching:
+.chk_if_matching:
         cmp ebx, 0
         jz main_loop
         dec ebx
         jmp .find_partner
 
-another_one:
+.another_one:
         inc ebx
         jmp .find_partner
 
+;loop_end:
+;	cmp dword[ecx], 0
+;	jz main_loop
+
+;.find_partner:
+; 	dec edx
+;	cmp byte[edx], '['
+;	jne .find_partner
+;	jmp main_loop
+
 loop_end:
-	cmp dword[ecx], 0
-	jz main_loop
+        cmp dword[ecx], 0
+        jz main_loop
+        xor ebx, ebx
 
 .find_partner:
-	dec edx
-	cmp byte[edx], '['
-	jne .find_partner
-	jmp main_loop
+        dec edx
+        mov al, byte[edx]
+        cmp al, '['
+        je .chk_if_matching
+        cmp al, ']'
+        je .another_one
+        jmp .find_partner
+
+.chk_if_matching:
+        cmp ebx, 0
+        jz main_loop
+        dec ebx
+        jmp .find_partner
+
+.another_one:
+        inc ebx
+        jmp .find_partner
 
 inv_para_size:
 	mov eax, debilizem

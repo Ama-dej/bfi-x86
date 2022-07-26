@@ -133,15 +133,39 @@ getchar:
 
 	jmp main_loop
 
+;loop_start:
+;	cmp dword[ecx], 0
+;	jne main_loop
+
+;.find_partner:
+;	cmp byte[edx], ']'
+;	je main_loop
+;	inc edx
+;	jmp .find_partner
+
 loop_start:
-	cmp dword[ecx], 0
-	jne main_loop
+        cmp dword[ecx], 0
+        jne main_loop
+        xor ebx, ebx
 
 .find_partner:
-	cmp byte[edx], ']'
-	je main_loop
-	inc edx
-	jmp .find_partner
+        mov al, byte[edx]
+        inc edx
+        cmp al, ']'
+        je chk_if_matching
+        cmp al, '['
+        je another_one
+        jmp .find_partner
+
+chk_if_matching:
+        cmp ebx, 0
+        jz main_loop
+        dec ebx
+        jmp .find_partner
+
+another_one:
+        inc ebx
+        jmp .find_partner
 
 loop_end:
 	cmp dword[ecx], 0

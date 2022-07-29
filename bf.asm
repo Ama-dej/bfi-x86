@@ -133,51 +133,50 @@ getchar:
 
 	jmp main_loop
 
-;loop_start:
-;	cmp dword[ecx], 0
-;	jne main_loop
-
-;.find_partner:
-;	cmp byte[edx], ']'
-;	je main_loop
-;	inc edx
-;	jmp .find_partner
-
 loop_start:
         cmp dword[ecx], 0
         jne main_loop
         xor ebx, ebx
-        ;dec edx
 
-.find_partner1:
-        ;inc edx
+.find_partner:
+	push .find_partner
         mov al, byte[edx]
         inc edx
         cmp al, ']'
-        je .chk_if_matching1
+        je chk_if_matching
         cmp al, '['
-        je .another_one1
-        jmp .find_partner1
-
-.chk_if_matching1:
-        cmp ebx, 0
-        jz main_loop
-        dec ebx
-        jmp .find_partner1
-
-.another_one1:
-        inc ebx
-        jmp .find_partner1
+        je another_one
+	pop eax
+        jmp .find_partner
 
 loop_end:
 	cmp dword[ecx], 0
 	jz main_loop
+	xor ebx, ebx
+	dec edx
 
 .find_partner:
+	push .find_partner
 	dec edx
-	cmp byte[edx], '['
-	jne .find_partner
-	jmp main_loop
+	mov al, byte[edx]
+	cmp al, '['
+	je chk_if_matching
+	cmp al, ']'
+	je another_one
+	pop eax
+	jmp .find_partner
+
+chk_if_matching:
+	pop eax
+	cmp ebx, 0
+	jz main_loop
+	dec ebx
+	jmp eax
+
+another_one:
+	pop eax
+	inc ebx
+	jmp eax
 
 inv_para_size:
 	mov eax, debilizem
@@ -196,15 +195,6 @@ file_keine_exist:
 	int 80h
 
 exit:
-	mov eax, 0ah
-	push eax
-	mov ecx, esp
-	mov eax, 4
-	mov ebx, 1
-	mov edx, 1
-	int 80h
-	pop eax
-
 	mov eax, 1
 	mov ebx, 0
 	int 80h 

@@ -1,4 +1,5 @@
 %include "io.asm"
+%include "lexer.asm"
 
 section .data
 debilizem:
@@ -55,6 +56,8 @@ get_file_name:
 	xor eax, eax
 	mov ecx, BF_BUFFER
 	mov edx, BF_CODE
+
+	call lexer
 
 main_loop:
 	mov al, [edx]

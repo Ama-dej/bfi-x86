@@ -1,4 +1,5 @@
 [Prints out the alphabet.]
+]
 ++++++++
 [>++++++++<-]
 >>

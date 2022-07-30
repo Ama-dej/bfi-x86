@@ -1,7 +1,7 @@
 slen:
 	push ebx
 	mov ebx, eax
-	
+
 .loop:
 	cmp byte[eax], 0
 	jz .exit
@@ -11,7 +11,7 @@ slen:
 .exit:
 	sub eax, ebx
 	pop ebx
-	
+
 	ret
 
 
@@ -34,18 +34,5 @@ sprint:
 	pop ebx
 	pop ecx
 	pop edx
-
-	ret
-
-sprintln:
-	call sprint
-
-	push eax
-	mov eax, 0ah
-	push eax
-	mov eax, esp
-	call sprint
-	pop eax
-	pop eax
 
 	ret

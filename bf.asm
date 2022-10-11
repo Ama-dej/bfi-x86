@@ -52,7 +52,7 @@ get_file_name:
 	mov ecx, BF_CODE
 	mov edx, 1000000	
 	int 80h
-
+	
 	xor eax, eax
 	mov ecx, BF_BUFFER
 	mov edx, BF_CODE
@@ -60,7 +60,7 @@ get_file_name:
 	call lexer
 
 main_loop:
-	mov al, [edx]
+	mov al, byte[edx]
 	inc edx
 
 	cmp al, '>'

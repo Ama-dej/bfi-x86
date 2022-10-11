@@ -30,9 +30,6 @@ lexer:
 
 .exit:
 	cmp ebx, 0
-	pop eax
-	pop ebx
-	pop edx
 	jz .ok
 
 	mov eax, lexer_failure

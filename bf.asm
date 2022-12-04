@@ -3,8 +3,7 @@
 
 section .data
 debilizem:
-	db "Invalid parameter size, use:", 0ah
-	db "$ bf example_file", 0ah, 0
+	db "Syntax: bf <brainfuck_program>", 0ah, 0
 no_file?:
 	db "Invalid file name.", 0ah, 0
 filename:

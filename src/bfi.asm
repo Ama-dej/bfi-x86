@@ -1,5 +1,5 @@
-%include "io.asm"
-%include "lexer.asm"
+%include "src/io.inc"
+%include "src/lexer.asm"
 
 section .data
 debilizem:
